@@ -1,0 +1,61 @@
+<label>Server Name</label>
+
+<!-- event binding -->
+<!-- <input type="text" class="form-control" (input)="onUpdateServerName($event)" /> -->
+
+<!-- Two-way-data-binding -->
+<input type="text" class="form-control" [(ngModel)]="serverName" />
+<!-- <p>{{ serverName }}</p> -->
+
+<button
+  class="btn btn-primary"
+  [disabled]="!allowNewServer"
+  (click)="onCreateServer()"
+>
+  Add Server
+</button>
+
+<!-- property binding -->
+<!-- <p [innerText]="allowNewServer"></p>
+<p>{{ allowNewServer }}</p> -->
+
+<!-- string interpolation -->
+<!-- <p>{{ serverCreationStatus }}</p> -->
+<p *ngIf="serverCreated; else noServer">
+  Server was created! Server name is {{ serverName }}
+</p>
+<!-- <p *ngIf="!serverCreated">No server was created!</p> -->
+<ng-template #noServer>
+  <p>No server was created!</p>
+</ng-template>
+
+<app-server *ngFor="let server of servers"></app-server>
+
+<hr />
+<h4>Practice</h4>
+<button class="btn btn-info" (click)="onClickButton()">Click Here! 🤞</button>
+<p>{{ whatHappens }}</p>
+
+<hr />
+
+<h4>Assignment #2</h4>
+<label>Username</label>
+<input type="text" class="form-control" [(ngModel)]="username" />
+<p>{{ username }}</p>
+<button
+  class="btn btn-warning"
+  [disabled]="username === ''"
+  (click)="username = ''"
+>
+  Reset User
+</button>
+
+<hr />
+<h4>Assignment #3</h4>
+<button class="btn btn-secondary" (click)="onDisplayDetails($event)">
+  Display Details
+</button>
+<p *ngFor="let click of btnClicks">
+  {{ click }}
+</p>
+<p *ngIf="showDetails">Secret password = tuna</p>
