@@ -21,8 +21,8 @@ export class ServersComponent implements OnInit {
 
   username: string = '';
 
-  showDetails: boolean = false;
-  btnClicks = [];
+  showSecret: boolean = false;
+  log = [];
 
   constructor() {
     setTimeout(() => {
@@ -46,9 +46,9 @@ export class ServersComponent implements OnInit {
     this.serverName = (<HTMLInputElement>event.target).value;
   }
 
-  onDisplayDetails(event: Event) {
-    this.showDetails = true;
-    this.btnClicks.push(event.timeStamp);
-    // console.log(event);
+  onToggleDetails() {
+    this.showSecret = !this.showSecret;
+    // this.log.push(this.log.length + 1);
+    this.log.push(new Date());
   }
 }

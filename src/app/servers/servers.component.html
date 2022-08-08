@@ -52,10 +52,17 @@
 
 <hr />
 <h4>Assignment #3</h4>
-<button class="btn btn-secondary" (click)="onDisplayDetails($event)">
+<!-- <button class="btn btn-secondary" (click)="showSecret = !showSecret">
+  Display Details
+</button> -->
+<button class="btn btn-secondary" (click)="onToggleDetails()">
   Display Details
 </button>
-<p *ngFor="let click of btnClicks">
-  {{ click }}
-</p>
-<p *ngIf="showDetails">Secret password = tuna</p>
+<p *ngIf="showSecret">Secret Password = tuna</p>
+<div
+  *ngFor="let logItem of log; let i = index"
+  [ngStyle]="{ backgroundColor: i >= 4 ? 'blue' : 'transparent' }"
+  [ngClass]="{ 'white-text': i >= 4 }"
+>
+  {{ logItem }}
+</div>
