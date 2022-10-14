@@ -16,25 +16,32 @@ export class DataStorageService {
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
     this.http
-      .put('#.firebaseio.com/recipes.json', recipes)
+      .put(
+        'https://my-ng-app-7c14d-default-rtdb.europe-west1.firebasedatabase.app/recipes.json',
+        recipes
+      )
       .subscribe((response) => {
         console.log(response);
       });
   }
 
   fetchRecipes() {
-    return this.http.get<Recipe[]>('#.firebaseio.com/recipes.json').pipe(
-      map((recipes) => {
-        return recipes.map((recipe) => {
-          return {
-            ...recipe,
-            ingredients: recipe.ingredients ? recipe.ingredients : [],
-          };
-        });
-      }),
-      tap((recipes) => {
-        this.recipeService.setRecipes(recipes);
-      })
-    );
+    return this.http
+      .get<Recipe[]>(
+        'https://my-ng-app-7c14d-default-rtdb.europe-west1.firebasedatabase.app/recipes.json'
+      )
+      .pipe(
+        map((recipes) => {
+          return recipes.map((recipe) => {
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients ? recipe.ingredients : [],
+            };
+          });
+        }),
+        tap((recipes) => {
+          this.recipeService.setRecipes(recipes);
+        })
+      );
   }
 }
