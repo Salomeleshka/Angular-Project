@@ -23,11 +23,14 @@ export class AuthService {
 
   signup(email: string, password: string) {
     return this.http
-      .post<AuthResponseData>('#', {
-        email: email,
-        password: password,
-        returnSecureToken: true,
-      })
+      .post<AuthResponseData>(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=AIzaSyAMHY1BrIkZY4XJrUaprSA1nDtrdlhJneM',
+        {
+          email: email,
+          password: password,
+          returnSecureToken: true,
+        }
+      )
       .pipe(
         catchError(this.handleError),
         tap((resData) => {
@@ -43,11 +46,14 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post<AuthResponseData>('#', {
-        email: email,
-        password: password,
-        returnSecureToken: true,
-      })
+      .post<AuthResponseData>(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAMHY1BrIkZY4XJrUaprSA1nDtrdlhJneM',
+        {
+          email: email,
+          password: password,
+          returnSecureToken: true,
+        }
+      )
       .pipe(
         catchError(this.handleError),
         tap((resData) => {
@@ -131,6 +137,7 @@ export class AuthService {
         break;
       case 'INVALID_PASSWORD':
         errorMessage = 'This password is not corect';
+        break;
     }
     return throwError(errorMessage);
   }
