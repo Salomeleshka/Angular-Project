@@ -1,7 +1,9 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, Subject, tap, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { throwError, BehaviorSubject } from 'rxjs';
+
 import { User } from './user.model';
 
 export interface AuthResponseData {
@@ -9,7 +11,7 @@ export interface AuthResponseData {
   idToken: string;
   email: string;
   refreshToken: string;
-  exporesIn: string;
+  expiresIn: string;
   localId: string;
   registered?: boolean;
 }
@@ -38,7 +40,7 @@ export class AuthService {
             resData.email,
             resData.localId,
             resData.idToken,
-            +resData.exporesIn
+            +resData.expiresIn
           );
         })
       );
@@ -61,7 +63,7 @@ export class AuthService {
             resData.email,
             resData.localId,
             resData.idToken,
-            +resData.exporesIn
+            +resData.expiresIn
           );
         })
       );
@@ -130,13 +132,13 @@ export class AuthService {
     }
     switch (errorRes.error.error.message) {
       case 'EMAIL_EXISTS':
-        errorMessage = 'This email exists already!';
+        errorMessage = 'This email exists already';
         break;
       case 'EMAIL_NOT_FOUND':
-        errorMessage = 'This email does not exist';
+        errorMessage = 'This email does not exist.';
         break;
       case 'INVALID_PASSWORD':
-        errorMessage = 'This password is not corect';
+        errorMessage = 'This password is not correct.';
         break;
     }
     return throwError(errorMessage);
